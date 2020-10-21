@@ -1,3 +1,9 @@
 [submodule "db-db"]
 	path = db-db
 	url = https://github.com/stream2stream/db-db.git
+[submodule "data-generator"]
+	path = data-generator
+	url = https://github.com/stream2stream/data-generator.git
+[submodule "webServerEvents"]
+	path = webServerEvents
+	url = https://github.com/stream2stream/webServerEvents.git
