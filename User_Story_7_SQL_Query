@@ -1,0 +1,15 @@
+SELECT 	deal_id, 
+		deal_instrument_id, 
+        deal_type, 
+        deal_amount
+FROM deal 
+ORDER BY deal_instrument_id, deal_type ASC;
+
+SELECT 	deal_instrument_id, 
+		deal_type, 
+        AVG(deal_amount) AS 'Average Buy Price' FROM deal WHERE deal_type = 'B' GROUP BY deal_instrument_id;
+SELECT 	deal_instrument_id, 
+		deal_type, 
+		AVG(deal_amount) AS 'Average Sell Price' FROM deal WHERE deal_type = 'S' GROUP BY deal_instrument_id;
+        
+	
