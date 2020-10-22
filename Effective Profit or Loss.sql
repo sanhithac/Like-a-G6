@@ -1,4 +1,7 @@
-SELECT buys.deal_counterparty_id, buys.deal_instrument_id, buy_amount, buy_quantity, sell_amount, sell_quantity, current_market_value FROM (
+SELECT 	buys.deal_counterparty_id, 
+		buys.deal_instrument_id, 
+		((sell_amount - buy_amount) + ((buy_quantity - sell_quantity) * current_market_value)) AS effective_profit
+FROM (
 	SELECT deal_counterparty_id, deal_instrument_id, sum(deal_amount*deal_quantity) AS buy_amount, sum(deal_quantity) as buy_quantity
 	FROM deal
 	WHERE deal_type = 'B'
