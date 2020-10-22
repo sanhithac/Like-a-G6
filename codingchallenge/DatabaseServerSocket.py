@@ -3,6 +3,7 @@ import codingchallenge.DatabaseConnector as dc
 
 
 def runServerSocketDao():
+    #dao_listener_host = '172.17.128.1'
     dao_listener_host = '127.0.0.1'
     dao_listener_port = 8089
 

@@ -1,8 +1,8 @@
 import socket
 
 def runClientSocketDao(message):
-    dao_sender_host = '127.0.0.1'
-    dao_sender_port = 8089
+    dao_sender_host = '172.17.128.1'
+    dao_sender_port = 3306
 
     message = '1'
     #this is temporary
