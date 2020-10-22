@@ -1,15 +1,17 @@
-SELECT 	deal_id, 
-		deal_instrument_id, 
-        deal_type, 
-        deal_amount
-FROM deal 
-ORDER BY deal_instrument_id, deal_type ASC;
+SELECT buy.deal_instrument_id, average_buy_price, average_sell_price
 
+FROM (
 SELECT 	deal_instrument_id, 
-		deal_type, 
-        AVG(deal_amount) AS 'Average Buy Price' FROM deal WHERE deal_type = 'B' GROUP BY deal_instrument_id;
+        AVG(deal_amount) AS average_buy_price 
+        FROM deal 
+        WHERE deal_type = 'B' 
+        GROUP BY deal_instrument_id
+) buy
+JOIN (
 SELECT 	deal_instrument_id, 
-		deal_type, 
-		AVG(deal_amount) AS 'Average Sell Price' FROM deal WHERE deal_type = 'S' GROUP BY deal_instrument_id;
-        
-	
+		AVG(deal_amount) AS average_sell_price 
+        FROM deal 
+        WHERE deal_type = 'S' 
+        GROUP BY deal_instrument_id
+) sell
+ON buy.deal_instrument_id = sell.deal_instrument_id
