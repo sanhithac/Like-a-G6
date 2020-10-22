@@ -13,10 +13,10 @@ def home():
     error = None
     connected = None
     if request.method == 'POST':
-        if runWebSocket('1') is 'True':
+        if runWebSocket('1') == 'True':
             connected = 'Successfully connected to the database' #or redirect to home
             return render_template('home.html', connected=connected)
-        else
+        else:
             error = 'Could not connect to the database'
     return render_template('home.html', error=error)
 
@@ -33,9 +33,9 @@ def login():
         #    return redirect(url_for('landing'))
         username = request.form['username']
         message = username + ',' + request.form['password'] + ',2'
-        if runWebSocket(message) is 'True'
+        if runWebSocket(message) == 'True':
             return render_template('login.html', username=username)
-        else
+        else:
             error = 'Invalid Credentials. Please try again.'
     return render_template('login.html', error=error)
 
@@ -66,4 +66,4 @@ def runWebSocket(message):
 
 if __name__ == "__main__":
     app.run(debug=True)
-    webtier.bootapp()
+    #webtier.bootapp()
