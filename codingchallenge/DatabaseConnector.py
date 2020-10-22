@@ -1,6 +1,6 @@
 import json
 import MySQLdb as m
-
+import codingchallenge.Queries as q
 
 def connectDb():
     try:
@@ -27,7 +27,7 @@ def basicQuery(connection):
     if checkConnection1(connection):
         cursor = connection.cursor()
         try:
-            cursor.execute("""SELECT * FROM deal LIMIT 10""")
+            cursor.execute(q.query_test)
         except m.Error as e:
             print(e)
             return False
@@ -46,11 +46,11 @@ def basicQuery(connection):
 
 
 def checkLogin2(connection, user, password):
+
     if checkConnection1(connection):
         cursor = connection.cursor()
         try:
-            cursor.execute("""SELECT * FROM users WHERE user_id = %s AND 
-                            user_pwd = %s""", (user, password))
+            cursor.execute(q.query2, (user, password))
         except m.Error as e:
             print(e)
             return False
@@ -74,7 +74,7 @@ def avgPriceQuery7(connection):
     if checkConnection1(connection):
         cursor = connection.cursor()
         try:
-            cursor.execute("""PUT IN QUERY""")
+            cursor.execute(q.query7)
         except m.Error as e:
             print(e)
             return 'False'
@@ -93,7 +93,7 @@ def endingPositionQuery8(connection):
     if checkConnection1(connection):
         cursor = connection.cursor()
         try:
-            cursor.execute("""PUT IN QUERY""")
+            cursor.execute(q.query8)
         except m.Error as e:
             print(e)
             return 'False'
@@ -112,7 +112,7 @@ def realizedPL9(connection):
     if checkConnection1(connection):
         cursor = connection.cursor()
         try:
-            cursor.execute("""PUT IN QUERY""")
+            cursor.execute(q.query9)
         except m.Error as e:
             print(e)
             return 'False'
@@ -131,7 +131,7 @@ def effectivePL10(connection):
     if checkConnection1(connection):
         cursor = connection.cursor()
         try:
-            cursor.execute("""PUT IN QUERY""")
+            cursor.execute(q.query10)
         except m.Error as e:
             print(e)
             return 'False'
