@@ -13,7 +13,7 @@ def home():
     error = None
     connected = None
     if request.method == 'POST':
-        if runWebSocket('1') is 'true':
+        if runWebSocket('1') is 'True':
             connected = 'Successfully connected to the database' #or redirect to home
             return render_template('home.html', connected=connected)
         else
@@ -33,7 +33,7 @@ def login():
         #    return redirect(url_for('landing'))
         username = request.form['username']
         message = username + ',' + request.form['password'] + ',2'
-        if runWebSocket(message) is 'true'
+        if runWebSocket(message) is 'True'
             return render_template('login.html', username=username)
         else
             error = 'Invalid Credentials. Please try again.'
@@ -46,17 +46,24 @@ def landing():
 
 
 def runWebSocket(message):
-    host = "127.0.0.1"
-    port = 5000
-    websocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    websocket.connect((host, port))
-    websocket.send(message.encode())
-    response = ''
-    response = websocket.recv(1024).decode()
-    return response
+    dao_sender_host = '127.0.0.1'
+    dao_sender_port = 8089
+
+    try:
+        clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        clientsocket.connect((dao_sender_host, dao_sender_port))
+
+        clientsocket.send(bytes(message, 'UTF-8'))
+        buffer = clientsocket.recv(8000).decode('UTF-8')
+        print(buffer)
+        clientsocket.close()
+        return buffer
+    except Exception as e:
+        print(e)
+        print("Could not connect client socket DAO")
+        return None
 
 
 if __name__ == "__main__":
-    runWebSocket()
     app.run(debug=True)
-    #webtier.bootapp()
+    webtier.bootapp()
