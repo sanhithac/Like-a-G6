@@ -32,7 +32,7 @@ def login():
             #return render_template('login.html', username=username)
         #    return redirect(url_for('landing'))
         username = request.form['username']
-        message = username + ',' + request.form['password'] + ',2'
+        message = '2,' + username + ',' + request.form['password']
         if runWebSocket(message) == 'True':
             return render_template('login.html', username=username)
         else:
