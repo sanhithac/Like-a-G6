@@ -18,4 +18,4 @@ JOIN (
 	SELECT instrument_id, instrument_name 
     FROM instrument
 ) instrumentname
-ON buy.deal_instrument_id = instrument_id
+ON buy.deal_instrument_id = instrument_id;
