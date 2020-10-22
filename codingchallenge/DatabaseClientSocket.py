@@ -12,7 +12,7 @@ def runClientSocketDao(message):
         clientsocket.connect((dao_sender_host, dao_sender_port))
 
         clientsocket.send(bytes(message, 'UTF-8'))
-        buffer = clientsocket.recv(1024).decode('UTF-8')
+        buffer = clientsocket.recv(8000).decode('UTF-8')
         print(buffer)
         clientsocket.close()
         return buffer
