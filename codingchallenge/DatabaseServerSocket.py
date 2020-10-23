@@ -1,5 +1,5 @@
 import socket
-import codingchallenge.DatabaseConnector as dc
+import DatabaseConnector as dc
 
 
 def runServerSocketDao():

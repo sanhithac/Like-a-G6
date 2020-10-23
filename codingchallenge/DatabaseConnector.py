@@ -1,6 +1,6 @@
 import json
 import MySQLdb as m
-import codingchallenge.Queries as q
+import Queries as q
 
 def connectDb():
     try:
@@ -50,7 +50,7 @@ def checkLogin2(connection, user, password):
     if checkConnection1(connection):
         cursor = connection.cursor()
         try:
-            cursor.execute(q.query2, (user, password))
+            cursor.execute(q.query2, [user, password])
         except m.Error as e:
             print(e)
             return False
@@ -69,6 +69,110 @@ def checkLogin2(connection, user, password):
         return False
 
 
+def insertData5(counterparty, instrument, price, quantity, time, deal_type):
+
+    connection = connectDb()
+
+    instrument_id = getIdFromInstrumentName(connection, instrument)
+
+    if instrument_id == 'False':
+        return False
+
+    counterparty_id = getIdFromCounterpartyName(connection, counterparty)
+
+    if counterparty_id == 'False':
+        return False
+
+    deal_id = getNextDealId(connection)
+
+    if deal_id == 'False':
+        return False
+
+    if checkConnection1(connection):
+        cursor = connection.cursor()
+        try:
+            cursor.execute(q.query5_4, [int(deal_id) + 1, time, int(counterparty_id), int(instrument_id), deal_type, price, quantity])
+            connection.commit()
+        except m.Error as e:
+            print(e)
+            return False
+
+        print("Successfully Inserted Deal")
+
+    else:
+        return False
+
+
+def getIdFromInstrumentName(connection, instrument):
+
+    if checkConnection1(connection):
+        cursor = connection.cursor()
+
+        try:
+            cursor.execute(q.query5_1, [instrument])
+        except m.Error as e:
+            print(e)
+            return 'False'
+
+        result = cursor.fetchall()
+
+        if len(result) == 0:
+            print("Instrument Doesn't Exist")
+            return 'False'
+
+        return result[0][0]
+
+    else:
+        return 'False'
+
+
+def getIdFromCounterpartyName(connection, counterparty):
+
+    if checkConnection1(connection):
+        cursor = connection.cursor()
+
+        try:
+            cursor.execute(q.query5_2, [counterparty])
+        except m.Error as e:
+            print(e)
+            return 'False'
+
+        result = cursor.fetchall()
+
+        if len(result) == 0:
+            print("Counterparty Doesn't Exist")
+            return 'False'
+
+        return result[0][0]
+
+    else:
+        return 'False'
+
+
+def getNextDealId(connection):
+
+    if checkConnection1(connection):
+        cursor = connection.cursor()
+
+        try:
+            cursor.execute(q.query5_3)
+        except m.Error as e:
+            print(e)
+            return 'False'
+
+        result = cursor.fetchall()
+
+        if len(result) == 0:
+            print("Can't get new deal_id")
+            return 'False'
+
+        return result[0][0]
+
+    else:
+        return 'False'
+
+
+# UPDATE 7
 def avgPriceQuery7(connection):
     if checkConnection1(connection):
         cursor = connection.cursor()

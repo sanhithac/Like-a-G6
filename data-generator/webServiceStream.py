@@ -24,6 +24,7 @@ def stream():
         while True:
             #nonlocal instrList
             yield rdd.createRandomData(instrList) + "\n"
+
     return Response(eventStream(), status=200, mimetype="text/event-stream")
 
 def sse_stream():
