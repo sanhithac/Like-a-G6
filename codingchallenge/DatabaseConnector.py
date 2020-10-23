@@ -157,6 +157,7 @@ def avgPriceQuery7(connection):
 
         result = cursor.fetchall()
         json_list = convertTupleToJson(result)
+        #print(json_list)
 
         return json_list
 
@@ -164,7 +165,6 @@ def avgPriceQuery7(connection):
         return 'False'
 
 
-# UPDATE 8
 def endingPositionQuery8(connection):
     if checkConnection1(connection):
         cursor = connection.cursor()
@@ -176,6 +176,7 @@ def endingPositionQuery8(connection):
 
         result = cursor.fetchall()
         json_list = convertTupleToJson(result)
+        #print(json_list)
 
         return json_list
 
@@ -214,6 +215,7 @@ def effectivePL10(connection):
 
         result = cursor.fetchall()
         json_list = convertTupleToJson(result)
+        #print(json_list)
 
         return json_list
 
