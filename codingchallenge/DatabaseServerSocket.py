@@ -49,8 +49,9 @@ def handleData(buffer):
         return result
 
     elif input[0] == '9' and len(input) == 1:
-        result = dc.realizedPL9(connection)
-        return result
+        return 'False'
+        #result = dc.realizedPL9(connection)
+        #return result
 
     elif input[0] == '10' and len(input) == 1:
         result = dc.effectivePL10(connection)

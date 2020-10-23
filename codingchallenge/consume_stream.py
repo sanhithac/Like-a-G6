@@ -14,15 +14,16 @@ def with_requests(url):
     import requests
     return requests.get(url, stream=True)
 
-url = 'http://localhost:8080/streamTest/sse'
-response = with_urllib3(url)  # or with_requests(url)
-client = sseclient.SSEClient(response)
-for event in client.events():
-    data = json.loads(event.data)
-    counterparty = data["cpty"]
-    instrument = data["instrumentName"]
-    price = float(data["price"])
-    quantity = int(data["quantity"])
-    time = data["time"]
-    deal_type = data["type"]
-    dc.insertData5(counterparty, instrument, price, quantity, time, deal_type)
+def dealData():
+    url = 'http://localhost:8080/streamTest/sse'
+    response = with_urllib3(url)  # or with_requests(url)
+    client = sseclient.SSEClient(response)
+    for event in client.events():
+        data = json.loads(event.data)
+        counterparty = data["cpty"]
+        instrument = data["instrumentName"]
+        price = float(data["price"])
+        quantity = int(data["quantity"])
+        time = data["time"]
+        deal_type = data["type"]
+        dc.insertData5(counterparty, instrument, price, quantity, time, deal_type)
