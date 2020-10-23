@@ -47,20 +47,13 @@ def landing():
         if request.form['Connect'] == 'See Avg Buy and Sell':
            return redirect(url_for('avg'))
         elif request.form['Connect'] == 'See Ending Positions':
-            if runWebSocket('8') != 'False':
-                return redirect(url_for('ending'))
-            else:
-                error = 'Something Went Wrong, Select something else.'
+            return redirect(url_for('ending'))
         elif request.form['Connect'] == 'See Realized Profit and Loss':
-            if runWebSocket('9') != 'False':
-                return redirect(url_for('realized'))
-            else:
-                error = 'Something Went Wrong, Select something else.'
+            return redirect(url_for('avg'))
         elif request.form['Connect'] == 'See Effective Profit and Loss':
-            if runWebSocket('10') != 'False':
-                return redirect(url_for('effective'))
-            else:
-                error = 'Something Went Wrong, Select something else.'
+            return redirect(url_for('effective'))
+        else:
+            error = 'Something Went Wrong'
     return render_template('landing.html', error=error)
 
 
@@ -68,6 +61,28 @@ def landing():
 def avg():
     error = None
     info = runWebSocket('7')
+    if info != 'False':
+        return render_template('avg.html', info=info)
+    else:
+        error = 'Something Went Wrong, Select something else.'
+        return render_template('avg.html', error=error)
+    
+    
+@app.route('/ending')
+def ending():
+    error = None
+    info = runWebSocket('8')
+    if info != 'False':
+        return render_template('avg.html', info=info)
+    else:
+        error = 'Something Went Wrong, Select something else.'
+        return render_template('avg.html', error=error)
+
+
+@app.route('/effective')
+def avg():
+    error = None
+    info = runWebSocket('10')
     if info != 'False':
         return render_template('avg.html', info=info)
     else:
