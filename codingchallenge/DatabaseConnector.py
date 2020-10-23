@@ -92,6 +92,7 @@ def insertData5(counterparty, instrument, price, quantity, time, deal_type):
         cursor = connection.cursor()
         try:
             cursor.execute(q.query5_4, [int(deal_id) + 1, time, int(counterparty_id), int(instrument_id), deal_type, price, quantity])
+            connection.commit()
         except m.Error as e:
             print(e)
             return False
