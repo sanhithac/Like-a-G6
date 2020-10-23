@@ -73,10 +73,10 @@ def ending():
     error = None
     info = runWebSocket('8')
     if info != 'False':
-        return render_template('avg.html', info=info)
+        return render_template('ending.html', info=info)
     else:
         error = 'Something Went Wrong, Select something else.'
-        return render_template('avg.html', error=error)
+        return render_template('ending.html', error=error)
 
 
 @app.route('/effective')
@@ -84,10 +84,10 @@ def effective():
     error = None
     info = runWebSocket('10')
     if info != 'False':
-        return render_template('avg.html', info=info)
+        return render_template('effective.html', info=info)
     else:
         error = 'Something Went Wrong, Select something else.'
-        return render_template('avg.html', error=error)
+        return render_template('effective.html', error=error)
     
     
 def runWebSocket(message):
