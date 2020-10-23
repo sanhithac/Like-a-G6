@@ -80,7 +80,7 @@ def ending():
 
 
 @app.route('/effective')
-def avg():
+def effective():
     error = None
     info = runWebSocket('10')
     if info != 'False':
