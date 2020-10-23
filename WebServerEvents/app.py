@@ -1,12 +1,10 @@
 
 
 from flask import Flask, render_template, redirect, url_for, request
+#import webtier
 import socket
 
 app = Flask(__name__, template_folder='templates')
-
-
-# mysql.connector.connect(host='127.0.0.1', database='mysql-server', user='root', password='ppp')
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -42,9 +40,39 @@ def login():
     return render_template('login.html', error=error)
 
 
-@app.route("/landing")
+@app.route("/landing", methods=['GET', 'POST'])
 def landing():
-    return "hi"
+    error = None
+    if request.method == 'POST':
+        if request.form['Connect'] == 'See Avg Buy and Sell':
+            if runWebSocket('7') == 'True':
+                return redirect(url_for('avg'))
+            else:
+                error = 'Something Went Wrong, Select something else.'
+        elif request.form['Connect'] == 'See Ending Positions':
+            if runWebSocket('8') == 'True':
+                return redirect(url_for('ending'))
+            else:
+                error = 'Something Went Wrong, Select something else.'
+        elif request.form['Connect'] == 'See Realized Profit and Loss':
+            if runWebSocket('9') == 'True':
+                return redirect(url_for('realized'))
+            else:
+                error = 'Something Went Wrong, Select something else.'
+        elif request.form['Connect'] == 'See Effective Profit and Loss':
+            if runWebSocket('10') == 'True':
+                return redirect(url_for('effective'))
+            else:
+                error = 'Something Went Wrong, Select something else.'
+    return render_template('landing.html', error=error)
+
+
+@app.route('/avg')
+@app.route('/ending')
+@app.route('/realized')
+@app.route('/effective')
+def results():
+    return 'hi'
 
 
 def runWebSocket(message):

@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title> Like-A-G6 Landing</title>
+        <!--script-->
+    </head>
+    <body>
+        <h1>Select what you want to see:</h1>
+    <br>
+    <form method="post">
+            <input type="submit" name="Connect" value="See Avg Buy and Sell">
+            <input type="submit" name="Connect" value="See Ending Positions">
+            <input type="submit" name="Connect" value="See Realized Profit and Loss">
+            <input type="submit" name="Connect" value="See Effective Profit and Loss">
+    </form>
+        {% if error %}
+            <p class="error">Error: {{ error }}</p>
+        {% endif %}
+    </body>
+</html>
