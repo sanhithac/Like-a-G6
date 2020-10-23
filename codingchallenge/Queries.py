@@ -5,7 +5,8 @@ query2 = """SELECT * FROM users WHERE user_id = %s AND user_pwd = %s"""
 ##########################################################
 query5_1 = """SELECT instrument_id FROM instrument WHERE instrument_name = %s;"""
 query5_2 = """SELECT counterparty_id FROM counterparty WHERE counterparty_name = %s;"""
-query5_3 = """INSERT INTO deal(deal_time, deal_counterparty_id, deal_instrument_id, deal_type, deal_amount, deal_quantity) VALUES (%s, %s, %s, %s, %s, %s);"""
+query5_3 = """SELECT MAX(deal_id) FROM deal;"""
+query5_4 = """INSERT INTO deal(deal_id, deal_time, deal_counterparty_id, deal_instrument_id, deal_type, deal_amount, deal_quantity) VALUES (%s, %s, %s, %s, %s, %s, %s);"""
 ##########################################################
 query7 = """
 SELECT instrument_name, average_buy_price, average_sell_price

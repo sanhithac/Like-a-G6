@@ -83,10 +83,15 @@ def insertData5(counterparty, instrument, price, quantity, time, deal_type):
     if counterparty_id == 'False':
         return False
 
+    deal_id = getNextDealId(connection)
+
+    if deal_id == 'False':
+        return False
+
     if checkConnection1(connection):
         cursor = connection.cursor()
         try:
-            cursor.execute(q.query5_3, [time, int(counterparty_id), int(instrument_id), deal_type, price, quantity])
+            cursor.execute(q.query5_4, [int(deal_id) + 1, time, int(counterparty_id), int(instrument_id), deal_type, price, quantity])
         except m.Error as e:
             print(e)
             return False
@@ -135,6 +140,29 @@ def getIdFromCounterpartyName(connection, counterparty):
 
         if len(result) == 0:
             print("Counterparty Doesn't Exist")
+            return 'False'
+
+        return result[0][0]
+
+    else:
+        return 'False'
+
+
+def getNextDealId(connection):
+
+    if checkConnection1(connection):
+        cursor = connection.cursor()
+
+        try:
+            cursor.execute(q.query5_3)
+        except m.Error as e:
+            print(e)
+            return 'False'
+
+        result = cursor.fetchall()
+
+        if len(result) == 0:
+            print("Can't get new deal_id")
             return 'False'
 
         return result[0][0]
