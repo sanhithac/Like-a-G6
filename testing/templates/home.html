@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title> Like-A-G6 home</title>
+        <!--script-->
+    </head>
+    <body>
+        <h1>Welcome to our project - Like A G6</h1>
+    <br>
+        <form method="post">
+            <input type="submit" name="Connect" value="Connect to DB">
+        </form>
+    {% if connected %}
+        <p class="connected">{{ connected }}</p>
+        <a href="/login">
+            <Button> Login </Button>
+        </a>
+    {% endif %}
+    {% if error %}
+        <p class="error">Error: {{ error }}</p>
+    {% endif %}
+    </body>
+</html>
