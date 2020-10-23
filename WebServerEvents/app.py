@@ -45,22 +45,22 @@ def landing():
     error = None
     if request.method == 'POST':
         if request.form['Connect'] == 'See Avg Buy and Sell':
-            if runWebSocket('7') == 'True':
+            if runWebSocket('7') != 'False':
                 return redirect(url_for('avg'))
             else:
                 error = 'Something Went Wrong, Select something else.'
         elif request.form['Connect'] == 'See Ending Positions':
-            if runWebSocket('8') == 'True':
+            if runWebSocket('8') != 'False':
                 return redirect(url_for('ending'))
             else:
                 error = 'Something Went Wrong, Select something else.'
         elif request.form['Connect'] == 'See Realized Profit and Loss':
-            if runWebSocket('9') == 'True':
+            if runWebSocket('9') != 'False':
                 return redirect(url_for('realized'))
             else:
                 error = 'Something Went Wrong, Select something else.'
         elif request.form['Connect'] == 'See Effective Profit and Loss':
-            if runWebSocket('10') == 'True':
+            if runWebSocket('10') != 'False':
                 return redirect(url_for('effective'))
             else:
                 error = 'Something Went Wrong, Select something else.'
