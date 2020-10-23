@@ -45,10 +45,7 @@ def landing():
     error = None
     if request.method == 'POST':
         if request.form['Connect'] == 'See Avg Buy and Sell':
-            if runWebSocket('7') != 'False':
-                return redirect(url_for('avg'))
-            else:
-                error = 'Something Went Wrong, Select something else.'
+           return redirect(url_for('avg'))
         elif request.form['Connect'] == 'See Ending Positions':
             if runWebSocket('8') != 'False':
                 return redirect(url_for('ending'))
@@ -68,13 +65,16 @@ def landing():
 
 
 @app.route('/avg')
-@app.route('/ending')
-@app.route('/realized')
-@app.route('/effective')
-def results():
-    return 'hi'
-
-
+def avg():
+    error = None
+    info = runWebSocket('7')
+    if info != 'False':
+        return render_template('avg.html', info=info)
+    else:
+        error = 'Something Went Wrong, Select something else.'
+        return render_template('avg.html', error=error)
+    
+    
 def runWebSocket(message):
     dao_sender_host = '127.0.0.1'
     dao_sender_port = 8089
