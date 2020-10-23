@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title> Like-A-G6 Ending Positions</title>
+        <!--script-->
+    </head>
+    <body>
+        <h1>Here is the information you want to see:</h1>
+        <p>[counterparty_name, instrument_name, ending_amount, ending_quantity]</p>
+    <br>
+        {% if info %}
+            <p class="info">Info: {{ info }}</p>
+        {% endif %}
+        {% if error %}
+            <p class="error">Error: {{ error }}</p>
+        {% endif %}
+    </body>
+</html>
