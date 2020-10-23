@@ -1,7 +1,7 @@
 import json
 import pprint
 import sseclient
-import codingchallenge.DatabaseConnector as dc 
+import DatabaseConnector as dc 
 
 def with_urllib3(url):
     """Get a streaming response for the given event feed using urllib3."""

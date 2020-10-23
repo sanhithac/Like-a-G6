@@ -1,6 +1,6 @@
 import json
 import MySQLdb as m
-import codingchallenge.Queries as q
+import Queries as q
 
 def connectDb():
     try:
@@ -50,7 +50,7 @@ def checkLogin2(connection, user, password):
     if checkConnection1(connection):
         cursor = connection.cursor()
         try:
-            cursor.execute(q.query2, (user, password))
+            cursor.execute(q.query2, [user, password])
         except m.Error as e:
             print(e)
             return False
@@ -75,18 +75,18 @@ def insertData5(counterparty, instrument, price, quantity, time, deal_type):
 
     instrument_id = getIdFromInstrumentName(connection, instrument)
 
-    if instrument_id = 'False':
+    if instrument_id == 'False':
         return False
 
     counterparty_id = getIdFromCounterpartyName(connection, counterparty)
 
-    if counterparty_id = 'False':
+    if counterparty_id == 'False':
         return False
 
     if checkConnection1(connection):
         cursor = connection.cursor()
         try:
-            cursor.execute(q.query5_3, (time, counterparty_id, instrument_id, deal_type, price, quantity))
+            cursor.execute(q.query5_3, [time, int(counterparty_id), int(instrument_id), deal_type, price, quantity])
         except m.Error as e:
             print(e)
             return False
@@ -103,7 +103,7 @@ def getIdFromInstrumentName(connection, instrument):
         cursor = connection.cursor()
 
         try:
-            cursor.execute(q.query5_1, (instrument))
+            cursor.execute(q.query5_1, [instrument])
         except m.Error as e:
             print(e)
             return 'False'
@@ -114,8 +114,7 @@ def getIdFromInstrumentName(connection, instrument):
             print("Instrument Doesn't Exist")
             return 'False'
 
-        json_list = convertTupleToJson(result)
-        return json_list[0][0]
+        return result[0][0]
 
     else:
         return 'False'
@@ -127,7 +126,7 @@ def getIdFromCounterpartyName(connection, counterparty):
         cursor = connection.cursor()
 
         try:
-            cursor.execute(q.query5_2, (counterparty))
+            cursor.execute(q.query5_2, [counterparty])
         except m.Error as e:
             print(e)
             return 'False'
@@ -138,8 +137,7 @@ def getIdFromCounterpartyName(connection, counterparty):
             print("Counterparty Doesn't Exist")
             return 'False'
 
-        json_list = convertTupleToJson(result)
-        return json_list[0][0]
+        return result[0][0]
 
     else:
         return 'False'
